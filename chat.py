@@ -26,13 +26,15 @@ model.load_state_dict(model_state)
 model.eval()
 
 bot_name = "Sam"
+
+
 def get_response(msg):
     sentence = tokenize(msg)
-    X = bag_of_words(sentence, all_words)
-    X = X.reshape(1, X.shape[0])
-    X = torch.from_numpy(X).to(device)
+    x = bag_of_words(sentence, all_words)
+    x = x.reshape(1, x.shape[0])
+    x = torch.from_numpy(x).to(device)
 
-    output = model(X)
+    output = model(x)
     _, predicted = torch.max(output, dim=1)
 
     tag = tags[predicted.item()]
